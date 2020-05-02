@@ -72,7 +72,11 @@ class PrecautionBody extends StatelessWidget {
               ],
             ),
           ),
-          SymptomsItem("", "", ""),
+          SizedBox(height: 13,),
+          SymptomsItem("Social Distancing", "Try to maintain a minimum distance of 2 meters or 6 feet with other persons. It decreases the chance of getting infected", "assets/images/social.png"),
+          SymptomsItem("Wear Mask", "Wear face masks whenever you venture out of your home for anything necessary. Use good quality 3 layer masks for better protection", "assets/images/health.png"),
+          SymptomsItem("Wash Hands", "Wash your hands for atleast 20 seconds with soap from time to time. It kills the virus by destroying the outer fat layer", "assets/images/cleaning.png"),
+          SymptomsItem("Use Hand Sanitizers", "Use good quality high-alcohol hand sanitizers or hand rubs. Carry a bottle of it with you. Apply carefully on both sides of your hand when rubbing", "assets/images/spray.png")
         ],
       )
     );

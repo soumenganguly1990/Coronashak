@@ -58,6 +58,10 @@ flutter:
     - assets/images/nasal.png
     - assets/images/pain.png
     - assets/images/sorethroat.png
+    - assets/images/cleaning.png
+    - assets/images/social.png
+    - assets/images/health.png
+    - assets/images/spray.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
