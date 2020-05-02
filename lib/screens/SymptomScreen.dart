@@ -78,6 +78,29 @@ class SymptomScreenState extends State<SymptomScreen> {
 
   /// We could have used this as a widget, but we do not have any reloading of data necessary, otherwise we could have done something more with the build method
   _symptomsBody() {
+
+    var symptomNames = ["High Fever",
+      "Dry Cough",
+      "Pain",
+      "Congestion",
+      "Sore throat",
+      "Remember"
+    ];
+    var symptomDesc = ["Please check if you have high fever. Generally anything more than 100 degree Farenheit is a crucial symptom of infection, but only fever does not mean you have it",
+      "Notice whether you have dry cough. A high intensity dry cough along with fever is a crucial symptom",
+      "Are you having body aches or pains?",
+      "Nasal congestion and problem with breathing is a vital symptom of infection. Check if you also have fever and dry cough",
+      "Pain or irritation like sensation in the throat that can occur with or without swallowing",
+      "Remember a lot of the above mentioned symptoms are also symptoms of common flu. The symptoms do not occur at the same time and comes gradually. Almost 80% patients do not need hospitalization and get cured. Do not panic."
+    ];
+    var symptomImages = ['assets/images/highfever.png',
+      "assets/images/cough.png",
+      "assets/images/pain.png",
+      "assets/images/nasal.png",
+      "assets/images/sorethroat.png",
+      ""
+    ];
+
     return SingleChildScrollView(
       scrollDirection: Axis.vertical,
       child: Column(
@@ -131,28 +154,12 @@ class SymptomScreenState extends State<SymptomScreen> {
           SizedBox(
             height: 10,
           ),
-          SymptomsItem(
-              "High Fever",
-              "Please check if you have high fever. Generally anything more than 100 degree Farenheit is a crucial symptom of infection, but only fever does not mean you have it",
-              'assets/images/highfever.png'),
-          SymptomsItem(
-              "Dry Cough",
-              "Notice whether you have dry cough. A high intensity dry cough along with fever is a crucial symptom",
-              "assets/images/cough.png"),
-          SymptomsItem("Pain", "Are you having body aches or pains?",
-              "assets/images/pain.png"),
-          SymptomsItem(
-              "Congestion",
-              "Nasal congestion and problem with breathing is a vital symptom of infection. Check if you also have fever and dry cough",
-              "assets/images/nasal.png"),
-          SymptomsItem(
-              "Sore throat",
-              "Pain or irritation like sensation in the throat that can occur with or without swallowing",
-              "assets/images/sorethroat.png"),
-          SymptomsItem(
-              "Remember",
-              "Remember a lot of the above mentioned symptoms are also symptoms of common flu. The symptoms do not occur at the same time and comes gradually. Almost 80% patients do not need hospitalization and get cured. Do not panic.",
-              ""),
+          SymptomsItem(symptomNames[0], symptomDesc[0], symptomImages[0]),
+          SymptomsItem(symptomNames[1], symptomDesc[1], symptomImages[1]),
+          SymptomsItem(symptomNames[2], symptomDesc[2], symptomImages[2]),
+          SymptomsItem(symptomNames[3], symptomDesc[3], symptomImages[3]),
+          SymptomsItem(symptomNames[4], symptomDesc[4], symptomImages[4]),
+          SymptomsItem(symptomNames[5], symptomDesc[5], symptomImages[5]),
           SizedBox(
             height: 30,
           ),
@@ -166,7 +173,6 @@ class SymptomScreenState extends State<SymptomScreen> {
     return showDialog<String>(
       context: context,
       barrierDismissible: false,
-      // dialog is dismissible with a tap on the barrier
       builder: (BuildContext context) {
         return AlertDialog(
           title: Text('Enter Symptom'),
@@ -177,7 +183,7 @@ class SymptomScreenState extends State<SymptomScreen> {
                 autofocus: false,
                 decoration: InputDecoration(
                     labelText: 'Specify Any Symptom You Noticed',
-                    hintText: 'eg. Fever of 100.8 degree'),
+                    hintText: 'eg. Fever north of 100.8 degrees'),
                 onChanged: (value) {
                   symptom = value;
                 },
@@ -185,7 +191,7 @@ class SymptomScreenState extends State<SymptomScreen> {
             ],
           ),
           actions: <Widget>[
-            Text("Saving as of ${_getCurrentDateTime(Type.DATE)}"),
+            Text("Saving note as of ${_getCurrentDateTime(Type.DATE)}"),
             FlatButton(
               child: Text('Save'),
               onPressed: () {

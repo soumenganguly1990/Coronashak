@@ -1,8 +1,10 @@
 import 'dart:convert';
+import 'package:coronashak/screens/PrecautionScreen.dart';
 import 'package:coronashak/screens/SymptomScreen.dart';
+import 'package:coronashak/widgets/StateHelpLine.dart';
+import 'package:coronashak/widgets/StateHelplineItem.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:url_launcher/url_launcher.dart' as urlLauncher;
 
 class DashboardScreen extends StatelessWidget {
   @override
@@ -45,9 +47,9 @@ class _DashboardState extends State<_DashboardBody> {
     });
     _worldData = _getWorldData().then((onValue) {
       setState(() {
-        _wConfirmed = "${onValue.TotalConfirmed}";
-        _wDead = "${onValue.TotalDeaths}";
-        _wRecovered = "${onValue.TotalRecovered}";
+        _wConfirmed = "${onValue.totalConfirmed}";
+        _wDead = "${onValue.totalDeaths}";
+        _wRecovered = "${onValue.totalRecovered}";
       });
       return null;
     });
@@ -63,10 +65,10 @@ class _DashboardState extends State<_DashboardBody> {
     _indiaData = _getIndiaData().then((onValue) {
       var last = onValue.last;
       setState(() {
-        _confirmed = "${last.Confirmed}";
-        _dead = "${last.Deaths}";
-        _recovered = "${last.Recovered}";
-        _active = "${last.Confirmed - last.Deaths - last.Recovered}";
+        _confirmed = "${last.confirmed}";
+        _dead = "${last.deaths}";
+        _recovered = "${last.recovered}";
+        _active = "${last.confirmed - last.deaths - last.recovered}";
       });
       return null;
     });
@@ -451,8 +453,8 @@ class _DashboardState extends State<_DashboardBody> {
             tag: "tag$symptomTag",
             child: Card(
               elevation: 12,
-              shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(9)),
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(9)),
               child: Ink(
                   height: 160,
                   decoration: BoxDecoration(
@@ -464,7 +466,10 @@ class _DashboardState extends State<_DashboardBody> {
                   child: InkWell(
                     borderRadius: BorderRadius.circular(9),
                     splashColor: Colors.blueGrey,
-                    onTap: () { Navigator.of(context).push(MaterialPageRoute(builder: (build) => SymptomScreen())); },
+                    onTap: () {
+                      Navigator.of(context).push(MaterialPageRoute(
+                          builder: (build) => SymptomScreen()));
+                    },
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.end,
                       crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -491,43 +496,49 @@ class _DashboardState extends State<_DashboardBody> {
           SizedBox(
             height: 10,
           ),
-          Card(
-            elevation: 12,
-            shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(9)),
-            child: Ink(
-                height: 160,
-                decoration: BoxDecoration(
-                    image: DecorationImage(
-                        image: AssetImage('assets/images/cardbg.jpg'),
-                        fit: BoxFit.cover),
-                    borderRadius: BorderRadius.circular(9)),
-                padding: EdgeInsets.only(bottom: 13, left: 16, right: 16),
-                child: InkWell(
-                  borderRadius: BorderRadius.circular(9),
-                  splashColor: Colors.blueGrey,
-                  onTap: () {},
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: <Widget>[
-                      Text(
-                        "Precautions",
-                        style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white,
-                            fontSize: 20),
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      Text(
-                        "What rules you need to follow to be safe yourself and keep everybody around you safe too",
-                        style: TextStyle(color: Colors.white),
-                      )
-                    ],
-                  ),
-                )),
+          Hero(
+            tag: "tag$precautionTag",
+            child: Card(
+              elevation: 12,
+              shape:
+                  RoundedRectangleBorder(borderRadius: BorderRadius.circular(9)),
+              child: Ink(
+                  height: 160,
+                  decoration: BoxDecoration(
+                      image: DecorationImage(
+                          image: AssetImage('assets/images/cardbg.jpg'),
+                          fit: BoxFit.cover),
+                      borderRadius: BorderRadius.circular(9)),
+                  padding: EdgeInsets.only(bottom: 13, left: 16, right: 16),
+                  child: InkWell(
+                    borderRadius: BorderRadius.circular(9),
+                    splashColor: Colors.blueGrey,
+                    onTap: () {
+                      Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => PrecautionScreen()));
+                    },
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: <Widget>[
+                        Text(
+                          "Precautions",
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white,
+                              fontSize: 20),
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Text(
+                          "What rules you need to follow to be safe yourself and keep everybody around you safe too",
+                          style: TextStyle(color: Colors.white),
+                        )
+                      ],
+                    ),
+                  )),
+            ),
           ),
           SizedBox(
             height: 9,
@@ -578,274 +589,13 @@ class _DashboardState extends State<_DashboardBody> {
             child: ListView(
               scrollDirection: Axis.horizontal,
               children: <Widget>[
-                Card(
-                  color: Colors.lightBlueAccent,
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(6)),
-                  elevation: 3,
-                  child: Container(
-                    height: 110,
-                    width: 100,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(6),
-                    ),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: <Widget>[
-                        Text(
-                          "Helpline",
-                          style: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 21),
-                        ),
-                        Text(
-                          "Numbers\n(Tap to call)",
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.normal,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-                InkWell(
-                  splashColor: Colors.grey,
-                  onTap: () {
-                    callNumber('9836543565');
-                  },
-                  child: Card(
-                    color: Colors.red,
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(6)),
-                    elevation: 3,
-                    child: Container(
-                      height: 110,
-                      width: 100,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(6),
-                      ),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: <Widget>[
-                          Text(
-                            "Maharashtra",
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 17),
-                          ),
-                          Text(
-                            "020-26127394",
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.normal,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-                InkWell(
-                  splashColor: Colors.grey,
-                  onTap: () {
-                    callNumber('9836543565');
-                  },
-                  child: Card(
-                    color: Colors.redAccent,
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(6)),
-                    elevation: 3,
-                    child: Container(
-                      height: 110,
-                      width: 100,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(6),
-                      ),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: <Widget>[
-                          Text(
-                            "Gujarat",
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 17),
-                          ),
-                          Text(
-                            "104",
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.normal,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-                InkWell(
-                  splashColor: Colors.grey,
-                  onTap: () {
-                    callNumber('9836543565');
-                  },
-                  child: Card(
-                    color: Colors.deepOrange,
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(6)),
-                    elevation: 3,
-                    child: Container(
-                      height: 110,
-                      width: 100,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(6),
-                      ),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: <Widget>[
-                          Text(
-                            "Delhi",
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 17),
-                          ),
-                          Text(
-                            "011-22307145",
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.normal,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-                InkWell(
-                  splashColor: Colors.grey,
-                  onTap: () {
-                    callNumber('9836543565');
-                  },
-                  child: Card(
-                    color: Colors.deepOrangeAccent,
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(6)),
-                    elevation: 3,
-                    child: Container(
-                      height: 110,
-                      width: 100,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(6),
-                      ),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: <Widget>[
-                          Text(
-                            "Madhya Pd.",
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 17),
-                          ),
-                          Text(
-                            "104",
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.normal,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-                InkWell(
-                  splashColor: Colors.grey,
-                  onTap: () {
-                    callNumber('9836543565');
-                  },
-                  child: Card(
-                    color: Colors.orange,
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(6)),
-                    elevation: 3,
-                    child: Container(
-                      height: 110,
-                      width: 100,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(6),
-                      ),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: <Widget>[
-                          Text(
-                            "Rajasthan",
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 17),
-                          ),
-                          Text(
-                            "0141-2225624",
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.normal,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-                InkWell(
-                  splashColor: Colors.grey,
-                  onTap: () {
-                    callNumber('9836543565');
-                  },
-                  child: Card(
-                    color: Colors.orangeAccent,
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(6)),
-                    elevation: 3,
-                    child: Container(
-                      height: 110,
-                      width: 100,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(6),
-                      ),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: <Widget>[
-                          Text(
-                            "Tamilnadu",
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 17),
-                          ),
-                          Text(
-                            "044-29510500",
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.normal,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
+                StateHelpLine("Helpline", "Numbers\n(Tap to call)", Colors.lightBlueAccent),
+                StateHelplineItem("Maharashtra", "020-26127394", Colors.red),
+                StateHelplineItem("Gujarat", "104", Colors.redAccent),
+                StateHelplineItem("Delhi", "011-22307145", Colors.deepOrange),
+                StateHelplineItem("Madhya Pd.", "104", Colors.deepOrangeAccent),
+                StateHelplineItem("Rajasthan", "0141-2225624", Colors.orange),
+                StateHelplineItem("Tamilnadu", "044-29510500", Colors.orangeAccent),
               ],
             ),
           ),
@@ -859,48 +609,47 @@ class _DashboardState extends State<_DashboardBody> {
                   borderRadius: BorderRadius.circular(7)),
               child: ListView(
                   scrollDirection: Axis.vertical,
-                  children: ListTile.divideTiles(context: context, color: Colors.grey, tiles: [
-                    InkWell(
-                      splashColor: Colors.grey,
-                      child: ListTile(
-                        leading: Icon(Icons.perm_device_information),
-                        title: Text("About Device"),
-                        subtitle: Text("Know details of this device"),
-                        trailing: Icon(Icons.chevron_right),
-                      ),
-                      onTap: () {},
-                    ),
-                    InkWell(
-                      splashColor: Colors.grey,
-                      child: ListTile(
-                        leading: Icon(Icons.info_outline),
-                        title: Text("About App"),
-                        subtitle: Text("Know more about Coronashak"),
-                        trailing: Icon(Icons.chevron_right),
-                      ),
-                      onTap: () {},
-                    ),
-                    InkWell(
-                      splashColor: Colors.grey,
-                      child: ListTile(
-                        leading: Icon(Icons.camera_alt),
-                        title: Text("Camera"),
-                        subtitle: Text("Open camera and take pic"),
-                        trailing: Icon(Icons.chevron_right),
-                      ),
-                      onTap: () {},
-                    ),
-                  ]).toList())),
+                  children: ListTile.divideTiles(
+                      context: context,
+                      color: Colors.grey,
+                      tiles: [
+                        InkWell(
+                          splashColor: Colors.grey,
+                          child: ListTile(
+                            leading: Icon(Icons.perm_device_information),
+                            title: Text("About Device"),
+                            subtitle: Text("Know details of this device"),
+                            trailing: Icon(Icons.chevron_right),
+                          ),
+                          onTap: () {},
+                        ),
+                        InkWell(
+                          splashColor: Colors.grey,
+                          child: ListTile(
+                            leading: Icon(Icons.info_outline),
+                            title: Text("About App"),
+                            subtitle: Text("Know more about Coronashak"),
+                            trailing: Icon(Icons.chevron_right),
+                          ),
+                          onTap: () {},
+                        ),
+                        InkWell(
+                          splashColor: Colors.grey,
+                          child: ListTile(
+                            leading: Icon(Icons.camera_alt),
+                            title: Text("Camera"),
+                            subtitle: Text("Open camera and take pic"),
+                            trailing: Icon(Icons.chevron_right),
+                          ),
+                          onTap: () {},
+                        ),
+                      ]).toList())),
           SizedBox(
             height: 10,
           ),
         ],
       ),
     );
-  }
-
-  void callNumber(String number) {
-    urlLauncher.launch('tel://$number');
   }
 
   Future<List<IndiaData>> _getIndiaData() async {
@@ -928,61 +677,61 @@ class _DashboardState extends State<_DashboardBody> {
 }
 
 class WorldData {
-  int TotalConfirmed;
-  int TotalDeaths;
-  int TotalRecovered;
+  int totalConfirmed;
+  int totalDeaths;
+  int totalRecovered;
 
-  WorldData({this.TotalConfirmed, this.TotalDeaths, this.TotalRecovered});
+  WorldData({this.totalConfirmed, this.totalDeaths, this.totalRecovered});
 
   factory WorldData.fromJson(Map<String, dynamic> json) {
     return WorldData(
-        TotalConfirmed: json['TotalConfirmed'],
-        TotalDeaths: json['TotalDeaths'],
-        TotalRecovered: json['TotalRecovered']);
+        totalConfirmed: json['TotalConfirmed'],
+        totalDeaths: json['TotalDeaths'],
+        totalRecovered: json['TotalRecovered']);
   }
 }
 
 class IndiaData {
-  String Country;
-  String CountryCode;
-  String Province;
-  String City;
-  String CityCode;
-  String Lat;
-  String Lon;
-  int Confirmed;
-  int Deaths;
-  int Recovered;
-  int Active;
-  String Date;
+  String country;
+  String countryCode;
+  String province;
+  String city;
+  String cityCode;
+  String lat;
+  String lon;
+  int confirmed;
+  int deaths;
+  int recovered;
+  int active;
+  String date;
 
   IndiaData(
-      {this.Country,
-      this.CountryCode,
-      this.Province,
-      this.City,
-      this.CityCode,
-      this.Lat,
-      this.Lon,
-      this.Confirmed,
-      this.Deaths,
-      this.Recovered,
-      this.Active,
-      this.Date});
+      {this.country,
+      this.countryCode,
+      this.province,
+      this.city,
+      this.cityCode,
+      this.lat,
+      this.lon,
+      this.confirmed,
+      this.deaths,
+      this.recovered,
+      this.active,
+      this.date});
 
   factory IndiaData.fromJson(Map<String, dynamic> json) {
     return IndiaData(
-        Country: json['Country'],
-        CountryCode: json['CountryCode'],
-        Province: json['Province'],
-        City: json['City'],
-        CityCode: json['CityCode'],
-        Lat: json['Lat'],
-        Lon: json['Lon'],
-        Confirmed: json['Confirmed'],
-        Deaths: json['Deaths'],
-        Recovered: json['Recovered'],
-        Active: json['Active'],
-        Date: json['Date']);
+        country: json['Country'],
+        countryCode: json['CountryCode'],
+        province: json['Province'],
+        city: json['City'],
+        cityCode: json['CityCode'],
+        lat: json['Lat'],
+        lon: json['Lon'],
+        confirmed: json['Confirmed'],
+        deaths: json['Deaths'],
+        recovered: json['Recovered'],
+        active: json['Active'],
+        date: json['Date']);
   }
 }

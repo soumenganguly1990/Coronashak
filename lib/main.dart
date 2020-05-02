@@ -10,7 +10,7 @@ class MyApp extends StatelessWidget {
       title: 'Coronashak',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+          primarySwatch: Colors.blue,
       ),
       home: SplashScreen(),
     );
