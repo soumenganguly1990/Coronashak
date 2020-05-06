@@ -1,10 +1,11 @@
 # coronashak
 
-A flutter application to get updated Coronavirus Covid19 data from the Postman Covid19 api.
+An experimental flutter application to get updated Coronavirus Covid19 data from the Postman Covid19 api.
 
 ## Target
- - Learn Flutter
- - Make an app to cover most of basic things like widgets, api calls, list creation etc.
+ - To learn Flutter
+ - To make an app to cover most of the basic things like widgets, api calls, list and grid views, drawer, bottomsheet etc.
+ - To learn how to work with camera, bluetooth and sqlite
  
  ## Screenshots
  <p float="left">
@@ -37,4 +38,4 @@ A flutter application to get updated Coronavirus Covid19 data from the Postman C
 </p>
  
  ## Future Plans
- Implement and test some more features like bluetooth connectivity, image capture using camera and map integration.
+ Implement and test some more features like bluetooth connectivity, image capture using camera(Done), offline storage(Done) and map integration.
