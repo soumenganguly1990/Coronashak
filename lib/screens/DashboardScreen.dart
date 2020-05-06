@@ -6,6 +6,8 @@ import 'package:coronashak/widgets/StateHelplineItem.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
+import 'PictureScreen.dart';
+
 class DashboardScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -641,7 +643,7 @@ class _DashboardState extends State<_DashboardBody> {
                             subtitle: Text("Open camera and take pic"),
                             trailing: Icon(Icons.chevron_right),
                           ),
-                          onTap: () {},
+                          onTap: () { Navigator.of(context).push(MaterialPageRoute(builder: (context) => PictureScreen())); },
                         ),
                       ]).toList())),
           SizedBox(

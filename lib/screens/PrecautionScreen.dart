@@ -1,5 +1,4 @@
 import 'package:coronashak/widgets/SymptomsItem.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class PrecautionScreen extends StatelessWidget {
