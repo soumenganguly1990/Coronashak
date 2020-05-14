@@ -20,8 +20,9 @@ class IntroView extends StatelessWidget {
   Widget build(BuildContext context) {
     return IntroViewsFlutter(
       getPages(),
-      onTapDoneButton: () => _createRoute(),
+      onTapDoneButton: () { _createRoute(); },
       showSkipButton: true,
+      showNextButton: true,
       pageButtonTextStyles: new TextStyle(
         color: Colors.white,
         fontSize: 16.0,

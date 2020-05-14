@@ -67,6 +67,9 @@ flutter:
     - assets/images/social.png
     - assets/images/health.png
     - assets/images/spray.png
+    - assets/images/world.png
+    - assets/images/india.png
+    - assets/images/aboutbg.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

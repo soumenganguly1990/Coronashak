@@ -1,4 +1,5 @@
 import 'package:coronashak/widgets/BottomAppBarItem.dart';
+import 'package:coronashak/widgets/MyCustomClipper.dart';
 import 'package:coronashak/widgets/SymptomsItem.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -109,23 +110,25 @@ class SymptomScreenState extends State<SymptomScreen> {
         children: <Widget>[
           SizedBox(
             width: double.infinity,
-            height: 200,
+            height: 270,
             child: Stack(
               fit: StackFit.expand,
               children: <Widget>[
                 Hero(
                   tag: 'tag$symptomTag',
-                  child: Container(
-                    height: 200,
-                    padding: EdgeInsets.only(bottom: 16, left: 13, right: 13),
-                    decoration: BoxDecoration(
-                        image: DecorationImage(
-                            image: AssetImage('assets/images/symptoms.jpg'),
-                            fit: BoxFit.cover)),
+                  child: ClipPath(
+                    clipper: MyCustomClipper(),
+                    child: Container(
+                      padding: EdgeInsets.only(bottom: 16, left: 13, right: 13),
+                      decoration: BoxDecoration(
+                          image: DecorationImage(
+                              image: AssetImage('assets/images/symptoms.jpg'),
+                              fit: BoxFit.cover)),
+                    ),
                   ),
                 ),
                 Container(
-                  padding: EdgeInsets.only(right: 14, left: 14, bottom: 16),
+                  padding: EdgeInsets.only(right: 14, left: 14, bottom: 56),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.end,
                     crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -150,9 +153,6 @@ class SymptomScreenState extends State<SymptomScreen> {
                 ),
               ],
             ),
-          ),
-          SizedBox(
-            height: 10,
           ),
           SymptomsItem(symptomNames[0], symptomDesc[0], symptomImages[0]),
           SymptomsItem(symptomNames[1], symptomDesc[1], symptomImages[1]),

@@ -67,8 +67,9 @@ class PictureScreenState extends State<PictureScreen> {
 
   @override
   void dispose() {
-    PictureScreen.p1.dispose();
     PictureScreen.p1 = null;
+    (PictureScreen.db as Database).close();
+    PictureScreen.db = null;
     super.dispose();
   }
 }

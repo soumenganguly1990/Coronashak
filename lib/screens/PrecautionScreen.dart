@@ -1,3 +1,4 @@
+import 'package:coronashak/widgets/MyCustomClipper.dart';
 import 'package:coronashak/widgets/SymptomsItem.dart';
 import 'package:flutter/material.dart';
 
@@ -29,23 +30,26 @@ class PrecautionBody extends StatelessWidget {
         children: <Widget>[
           SizedBox(
             width: double.infinity,
-            height: 200,
+            height: 250,
             child: Stack(
               fit: StackFit.expand,
               children: <Widget>[
                 Hero(
                   tag: 'tag$precautionTag',
-                  child: Container(
-                    height: 200,
-                    padding: EdgeInsets.only(bottom: 16, left: 13, right: 13),
-                    decoration: BoxDecoration(
-                        image: DecorationImage(
-                            image: AssetImage('assets/images/cardbg.jpg'),
-                            fit: BoxFit.cover)),
+                  child: ClipPath(
+                    clipper: MyCustomClipper(),
+                    child: Container(
+                      height: 250,
+                      padding: EdgeInsets.only(bottom: 16, left: 13, right: 13),
+                      decoration: BoxDecoration(
+                          image: DecorationImage(
+                              image: AssetImage('assets/images/cardbg.jpg'),
+                              fit: BoxFit.cover)),
+                    ),
                   ),
                 ),
                 Container(
-                  padding: EdgeInsets.only(right: 14, left: 14, bottom: 16),
+                  padding: EdgeInsets.only(right: 14, left: 14, bottom: 56),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.end,
                     crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -71,11 +75,17 @@ class PrecautionBody extends StatelessWidget {
               ],
             ),
           ),
-          SizedBox(height: 13,),
           SymptomsItem("Social Distancing", "Try to maintain a minimum distance of 2 meters or 6 feet with other persons. It decreases the chance of getting infected", "assets/images/social.png"),
           SymptomsItem("Wear Mask", "Wear face masks whenever you venture out of your home for anything necessary. Use good quality 3 layer masks for better protection", "assets/images/health.png"),
           SymptomsItem("Wash Hands", "Wash your hands for atleast 20 seconds with soap from time to time. It kills the virus by destroying the outer fat layer", "assets/images/cleaning.png"),
-          SymptomsItem("Use Hand Sanitizers", "Use good quality high-alcohol hand sanitizers or hand rubs. Carry a bottle of it with you. Apply carefully on both sides of your hand when rubbing", "assets/images/spray.png")
+          SymptomsItem("Use Hand Sanitizers", "Use good quality high-alcohol hand sanitizers or hand rubs. Carry a bottle of it with you. Apply carefully on both sides of your hand when rubbing", "assets/images/spray.png"),
+          Container(
+            padding: EdgeInsets.all(13),
+            child: Text("Never forget to cover your face cmpletely if you get the urge to cough or sneeze. This the most common way the virus spreads. Never forget or venture out without your mask, ever.",
+              softWrap: true,
+            ),
+          ),
+          SizedBox(height: 60,)
         ],
       )
     );

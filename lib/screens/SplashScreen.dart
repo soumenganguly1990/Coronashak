@@ -65,7 +65,14 @@ class SplashScreenState extends State<SplashScreen> {
                     style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 32.0,
-                        color: Colors.white),
+                        color: Colors.white,
+                    shadows: [
+                      Shadow(
+                        color: Colors.grey,
+                        blurRadius: 10,
+                        offset: Offset(0, 5)
+                      )
+                    ]),
                   ),
                   SizedBox(height: 15,),
                   Text("Together we can\nLet\'s stay home so that everybody stays safe",

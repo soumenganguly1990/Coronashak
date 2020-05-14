@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:coronashak/screens/EmergencyServicesScreen.dart';
 import 'package:coronashak/screens/PrecautionScreen.dart';
 import 'package:coronashak/screens/SymptomScreen.dart';
 import 'package:coronashak/widgets/StateHelpLine.dart';
@@ -6,6 +7,7 @@ import 'package:coronashak/widgets/StateHelplineItem.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
+import 'AboutApp.dart';
 import 'PictureScreen.dart';
 
 class DashboardScreen extends StatelessWidget {
@@ -138,22 +140,25 @@ class _DashboardState extends State<_DashboardBody> {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
-              Text(
-                "World Statistics",
-                style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 18,
-                    color: Colors.blueGrey),
+              Expanded(
+                flex: 8,
+                child: Text(
+                  "World Statistics",
+                  style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 18,
+                      color: Colors.blueGrey),
+                ),
               ),
-              SizedBox(
-                width: 5,
-              ),
-              InkWell(
-                splashColor: Colors.grey,
-                child: Icon(Icons.refresh),
-                onTap: () {
-                  _plotWorldDate();
-                },
+              Expanded(
+                flex: 2,
+                child: InkWell(
+                  splashColor: Colors.grey,
+                  child: Text("Refresh", style: TextStyle(color: Colors.blueAccent, fontWeight: FontWeight.bold), textAlign: TextAlign.center,),
+                  onTap: () {
+                    _plotWorldDate();
+                  },
+                ),
               )
             ],
           ),
@@ -164,6 +169,13 @@ class _DashboardState extends State<_DashboardBody> {
           SizedBox(
             height: 3,
           ),
+          Image(
+            image: AssetImage('assets/images/world.png',),
+            width: double.infinity,
+            height: 170,
+            fit: BoxFit.fill,
+          ),
+          SizedBox(height: 5,),
           Row(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -171,11 +183,11 @@ class _DashboardState extends State<_DashboardBody> {
               Expanded(
                 flex: 1,
                 child: Card(
-                    color: Colors.orange,
+                    color: Colors.white,
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(7.0),
+                      borderRadius: BorderRadius.circular(9.0),
                     ),
-                    elevation: 14,
+                    elevation: 20,
                     child: Container(
                       padding: EdgeInsets.only(
                           top: 10, bottom: 10, left: 5, right: 5),
@@ -185,14 +197,14 @@ class _DashboardState extends State<_DashboardBody> {
                         children: <Widget>[
                           Text(
                             "Infected",
-                            style: TextStyle(color: Colors.white),
+                            style: TextStyle(color: Colors.orange),
                           ),
                           Text(
                             "$_wConfirmed",
                             style: TextStyle(
                                 fontWeight: FontWeight.bold,
                                 fontSize: 22,
-                                color: Colors.white),
+                                color: Colors.orange),
                           )
                         ],
                       ),
@@ -201,11 +213,11 @@ class _DashboardState extends State<_DashboardBody> {
               Expanded(
                 flex: 1,
                 child: Card(
-                    color: Colors.red,
+                    color: Colors.white,
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(7.0),
+                      borderRadius: BorderRadius.circular(9.0),
                     ),
-                    elevation: 14,
+                    elevation: 20,
                     child: Container(
                       padding: EdgeInsets.only(
                           top: 10, bottom: 10, left: 5, right: 5),
@@ -215,14 +227,14 @@ class _DashboardState extends State<_DashboardBody> {
                         children: <Widget>[
                           Text(
                             "Dead",
-                            style: TextStyle(color: Colors.white),
+                            style: TextStyle(color: Colors.red),
                           ),
                           Text(
                             "$_wDead",
                             style: TextStyle(
                                 fontWeight: FontWeight.bold,
                                 fontSize: 22,
-                                color: Colors.white),
+                                color: Colors.red),
                           )
                         ],
                       ),
@@ -231,11 +243,11 @@ class _DashboardState extends State<_DashboardBody> {
               Expanded(
                 flex: 1,
                 child: Card(
-                    color: Colors.green,
+                    color: Colors.white,
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(7.0),
+                      borderRadius: BorderRadius.circular(9.0),
                     ),
-                    elevation: 14,
+                    elevation: 20,
                     child: Container(
                       padding: EdgeInsets.only(
                           top: 10, bottom: 10, left: 5, right: 5),
@@ -245,14 +257,14 @@ class _DashboardState extends State<_DashboardBody> {
                         children: <Widget>[
                           Text(
                             "Recovered",
-                            style: TextStyle(color: Colors.white),
+                            style: TextStyle(color: Colors.green),
                           ),
                           Text(
                             "$_wRecovered",
                             style: TextStyle(
                                 fontWeight: FontWeight.bold,
                                 fontSize: 22,
-                                color: Colors.white),
+                                color: Colors.green),
                           )
                         ],
                       ),
@@ -261,28 +273,31 @@ class _DashboardState extends State<_DashboardBody> {
             ],
           ),
           SizedBox(
-            height: 12,
+            height: 17,
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
-              Text(
-                "India Statistics",
-                style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 18,
-                    color: Colors.blueGrey),
+              Expanded(
+                flex: 8,
+                child: Text(
+                  "India Statistics",
+                  style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 18,
+                      color: Colors.blueGrey),
+                ),
               ),
-              SizedBox(
-                width: 9,
-              ),
-              InkWell(
-                splashColor: Colors.grey,
-                child: Icon(Icons.refresh),
-                onTap: () {
-                  _plotIndiaData();
-                },
+              Expanded(
+                flex: 2,
+                child: InkWell(
+                  splashColor: Colors.grey,
+                  child: Text("Refresh", style: TextStyle(color: Colors.blueAccent, fontWeight: FontWeight.bold), textAlign: TextAlign.center,),
+                  onTap: () {
+                    _plotIndiaData();
+                  },
+                ),
               )
             ],
           ),
@@ -297,159 +312,176 @@ class _DashboardState extends State<_DashboardBody> {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
-              Expanded(
-                flex: 1,
-                child: Card(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(4),
-                    ),
-                    elevation: 14,
-                    child: Container(
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(4),
-                          gradient: LinearGradient(
-                              begin: Alignment.topCenter,
-                              end: Alignment.bottomCenter,
-                              colors: [
-                                Colors.orangeAccent,
-                                Color(0xFFF57C00),
-                              ])),
-                      padding: EdgeInsets.only(
-                          top: 10, bottom: 10, left: 5, right: 5),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: <Widget>[
-                          Text(
-                            "Infected",
-                            style: TextStyle(color: Colors.white),
-                          ),
-                          Text(
-                            "$_confirmed",
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 28,
-                                color: Colors.white),
-                          )
-                        ],
-                      ),
-                    )),
+              Image(
+                image: AssetImage('assets/images/india.png'),
+                width: 120,
+                height: 100,
               ),
               Expanded(
                 flex: 1,
-                child: Card(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(4),
+                child: Column(
+                  children: <Widget>[
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: <Widget>[
+                        Expanded(
+                          flex: 1,
+                          child: Card(
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(8),
+                              ),
+                              elevation: 14,
+                              child: Container(
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(8),
+                                    gradient: LinearGradient(
+                                        begin: Alignment.topCenter,
+                                        end: Alignment.bottomCenter,
+                                        colors: [
+                                          Colors.orangeAccent,
+                                          Color(0xFFF57C00),
+                                        ])),
+                                padding: EdgeInsets.all(5),
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: <Widget>[
+                                    Text(
+                                      "Infected",
+                                      style: TextStyle(color: Colors.white),
+                                    ),
+                                    Text(
+                                      "$_confirmed",
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 28,
+                                          color: Colors.white),
+                                    )
+                                  ],
+                                ),
+                              )),
+                        ),
+                        SizedBox(width: 7,),
+                        Expanded(
+                          flex: 1,
+                          child: Card(
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(8),
+                              ),
+                              elevation: 14,
+                              child: Container(
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(8),
+                                    gradient: LinearGradient(
+                                        begin: Alignment.topCenter,
+                                        end: Alignment.bottomCenter,
+                                        colors: [Colors.redAccent, Color(0xFFF44336)])),
+                                padding: EdgeInsets.all(5),
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: <Widget>[
+                                    Text(
+                                      "Dead",
+                                      style: TextStyle(color: Colors.white),
+                                    ),
+                                    Text(
+                                      "$_dead",
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 28,
+                                          color: Colors.white),
+                                    )
+                                  ],
+                                ),
+                              )),
+                        ),
+                      ],
                     ),
-                    elevation: 14,
-                    child: Container(
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(4),
-                          gradient: LinearGradient(
-                              begin: Alignment.topCenter,
-                              end: Alignment.bottomCenter,
-                              colors: [Colors.redAccent, Color(0xFFF44336)])),
-                      padding: EdgeInsets.only(
-                          top: 10, bottom: 10, left: 5, right: 5),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: <Widget>[
-                          Text(
-                            "Dead",
-                            style: TextStyle(color: Colors.white),
-                          ),
-                          Text(
-                            "$_dead",
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 28,
-                                color: Colors.white),
-                          )
-                        ],
-                      ),
-                    )),
+                    SizedBox(height: 7,),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: <Widget>[
+                        Expanded(
+                          flex: 1,
+                          child: Card(
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(8),
+                              ),
+                              elevation: 14,
+                              child: Container(
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(8),
+                                    gradient: LinearGradient(
+                                        begin: Alignment.topCenter,
+                                        end: Alignment.bottomCenter,
+                                        colors: [Color(0xFF8BC34A), Color(0xFF689F38)])),
+                                padding: EdgeInsets.all(5),
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: <Widget>[
+                                    Text(
+                                      "Recovered",
+                                      style: TextStyle(color: Colors.white),
+                                    ),
+                                    Text(
+                                      "$_recovered",
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 26,
+                                          color: Colors.white),
+                                    )
+                                  ],
+                                ),
+                              )),
+                        ),
+                        SizedBox(width: 7,),
+                        Expanded(
+                          flex: 1,
+                          child: Card(
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(8),
+                              ),
+                              elevation: 14,
+                              child: Container(
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(8),
+                                    gradient: LinearGradient(
+                                        begin: Alignment.topCenter,
+                                        end: Alignment.bottomCenter,
+                                        colors: [Colors.grey, Colors.blueGrey])),
+                                padding: EdgeInsets.all(5),
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: <Widget>[
+                                    Text(
+                                      "Active",
+                                      style: TextStyle(color: Colors.white),
+                                    ),
+                                    Text(
+                                      "$_active",
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 26,
+                                          color: Colors.white),
+                                    )
+                                  ],
+                                ),
+                              )),
+                        )
+                      ],
+                    ),
+                  ],
+                ),
               ),
-            ],
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: <Widget>[
-              Expanded(
-                flex: 1,
-                child: Card(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(4),
-                    ),
-                    elevation: 14,
-                    child: Container(
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(4),
-                          gradient: LinearGradient(
-                              begin: Alignment.topCenter,
-                              end: Alignment.bottomCenter,
-                              colors: [Color(0xFF8BC34A), Color(0xFF689F38)])),
-                      padding: EdgeInsets.only(
-                          top: 10, bottom: 10, left: 5, right: 5),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: <Widget>[
-                          Text(
-                            "Recovered",
-                            style: TextStyle(color: Colors.white),
-                          ),
-                          Text(
-                            "$_recovered",
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 26,
-                                color: Colors.white),
-                          )
-                        ],
-                      ),
-                    )),
-              ),
-              Expanded(
-                flex: 1,
-                child: Card(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(4),
-                    ),
-                    elevation: 14,
-                    child: Container(
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(4),
-                          gradient: LinearGradient(
-                              begin: Alignment.topCenter,
-                              end: Alignment.bottomCenter,
-                              colors: [Colors.grey, Colors.blueGrey])),
-                      padding: EdgeInsets.only(
-                          top: 10, bottom: 10, left: 5, right: 5),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: <Widget>[
-                          Text(
-                            "Active",
-                            style: TextStyle(color: Colors.white),
-                          ),
-                          Text(
-                            "$_active",
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 26,
-                                color: Colors.white),
-                          )
-                        ],
-                      ),
-                    )),
-              )
             ],
           ),
           SizedBox(
-            height: 9,
+            height: 12,
           ),
           Hero(
             tag: "tag$symptomTag",
@@ -619,11 +651,11 @@ class _DashboardState extends State<_DashboardBody> {
                           splashColor: Colors.grey,
                           child: ListTile(
                             leading: Icon(Icons.perm_device_information),
-                            title: Text("About Device"),
-                            subtitle: Text("Know details of this device"),
+                            title: Text("Emergency Services"),
+                            subtitle: Text("Emergency services at doorstep"),
                             trailing: Icon(Icons.chevron_right),
                           ),
-                          onTap: () {},
+                          onTap: () { Navigator.of(context).push(MaterialPageRoute(builder: (context) => EmergencyServicesScreen())); },
                         ),
                         InkWell(
                           splashColor: Colors.grey,
@@ -633,7 +665,7 @@ class _DashboardState extends State<_DashboardBody> {
                             subtitle: Text("Know more about Coronashak"),
                             trailing: Icon(Icons.chevron_right),
                           ),
-                          onTap: () {},
+                          onTap: () { Navigator.of(context).push(MaterialPageRoute(builder: (context) => AboutApp())); },
                         ),
                         InkWell(
                           splashColor: Colors.grey,
